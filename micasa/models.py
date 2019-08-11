@@ -29,8 +29,6 @@ class Location(models.Model):
     )
     name = models.CharField(max_length=65, choices=locations)
 
-
-
     def save_loc(self):
         self.save()
 
@@ -54,8 +52,6 @@ class Profile(models.Model):
 
     def save_profile(self):
         self.save()
-
-
 
     @receiver(post_save, sender=User)
     def update_user_profile(sender, instance, created, **kwargs):
@@ -93,7 +89,6 @@ class Business(models.Model):
     def search_business(cls, search_term):
         business = Business.objects.filter(business_name__icontains=search_term)
         return business
-
 
     @classmethod
     def get_business(cls, id):
