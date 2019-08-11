@@ -6,6 +6,13 @@ from pyuploadcare.dj.models import ImageField
 
 # Create your models here.
 
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+
 class Location(models.Model):
     locations = (
         ('Nairobi', 'Nairobi'),
