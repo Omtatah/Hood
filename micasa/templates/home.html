@@ -14,9 +14,10 @@
     text-decoration: inherit; width:500px;">
         </form>
         {% if request.user.profile.hood %}
-
-        <small class="w3-text-white"><a href="{% url 'hood' hood_id=request.user.profile.hood.id %}">
-                View Your Current Hood </a></small>
+        <small class="w3-text-white">
+            <a href="{% url 'hood' hood_id=request.user.profile.hood.id %}"> View Your Current Hood </a>
+        </small>
+        
         {% else %}
 
     </div>
