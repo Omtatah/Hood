@@ -146,3 +146,21 @@ def filter_location(request):
     message = f"{location}"
 
     return render(request,'category/location.html', {"message":message,"location":searched_image, "locations":locations})    
+
+
+# Post view
+@login_required(login_url='/accounts/login')
+def add_post(request):
+    hood = Hood.objects.get(id=request.user.profile.hood.id)
+    if request.method == 'POST':
+        postform = PostForm(request.POST, request.FILES)
+        if postform.is_valid():
+            post = postform.save(commit=False)
+            post.profile = request.user.profile
+            post.user = request.user
+            post.hood=request.user.profile.hood
+            post.save()
+            return redirect('hood',request.user.profile.hood.id)
+    else:
+        postform = PostForm()
+    return render(request,'upload_post.html',locals())
