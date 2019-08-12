@@ -18,3 +18,27 @@ class HoodTestClass(TestCase):
         self.my_hood.save_hood()
         hood = Hood.objects.all()
         self.assertTrue(len(Hood)>0)
+        
+
+class profileTestCLass(TestCase):
+    '''
+    setup self instance of profile
+    '''
+
+    def setUp(self):
+        self.profile = Profile(bio='Lover of life', full_name='Wairimu Maina')
+
+    ''' 
+    test instance of profile
+    '''
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.profile, Profile))
+
+    def test_save_profile(self):
+        self.profile.save_profile()
+        bio = Profile.objects.all()
+        self.assertTrue(len(bio) > 0)
+        
+        
+                
