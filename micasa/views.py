@@ -123,3 +123,16 @@ def upload_business(request):
     return render(request,'business.html',locals())  
 
 
+def search_category(request):
+    location = Location.objects.all()
+    category = Category.objects.all()
+    if 'Category' in request.GET and request.GET["Category"]:
+        category = request.GET.get("Category")
+        searched_business = Business.search_by_category(category)
+        message = f"{category}"
+
+        return render(request,'search_business.html', {"message":message,"Category":searched_business})
+
+    else:
+        message = "You haven't searched for anything"
+        return render(request,'search_business.html',{"message":message})
