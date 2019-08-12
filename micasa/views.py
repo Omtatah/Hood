@@ -7,6 +7,7 @@ from . forms import *
 from django.contrib.auth.models import User
 
 # Create your views here.
+# Views for hood
 @login_required(login_url='/accounts/login/')
 def home(request):
     hoods = Hood.objects.all()
@@ -69,4 +70,21 @@ def search_results(request):
         return render(request,'search.html',{"message":message})
     
     
-    
+# Views for profile
+@login_required(login_url='/accounts/login/')
+def profile(request, username):
+
+    profile = User.objects.get(username=username)
+    print(profile.id)
+    try:
+        profile_details = Profile.get_by_id(profile.id)
+    except:
+        pass
+    user = request.user
+    profile = User.objects.get(username=username)
+    title = f'@{profile.username} '
+
+    return render(request, 'profile.html', locals()) 
+
+
+   
