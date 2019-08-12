@@ -103,4 +103,23 @@ def edit(request):
             return redirect('profile.html')
     else:
         form = ProfileForm(instance=user)
-    return render(request, 'edit_profile.html', locals())   
+    return render(request, 'edit_profile.html', locals()) 
+
+
+# business views
+@login_required(login_url='/accounts/login')
+def upload_business(request):
+    hood = Hood.objects.get(id=request.user.profile.hood.id)
+    if request.method == 'POST':
+        businessform = BusinessForm(request.POST, request.FILES)
+        if businessform.is_valid():
+            upload = businessform.save(commit=False)
+            upload.user=request.user
+            upload.hood=request.user.profile.hood
+            upload.save()
+        return redirect('hood',request.user.profile.hood.id)
+    else:
+        businessform = BusinessForm()
+    return render(request,'business.html',locals())  
+
+
