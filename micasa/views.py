@@ -54,3 +54,19 @@ def leave(request,hood_id):
     current_user.profile.hood = None
     current_user.profile.save()
     return redirect('home')
+
+
+def search_results(request):
+    if 'search' in request.GET and request.GET['search']:
+        search_term = request.GET.get('search')
+        searched_hood = Hood.search_hood(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search_hood.html',locals())
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request,'search.html',{"message":message})
+    
+    
+    
