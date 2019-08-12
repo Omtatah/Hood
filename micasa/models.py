@@ -5,10 +5,6 @@ from django.dispatch import receiver
 from pyuploadcare.dj.models import ImageField
 
 # Create your models here.
-
-
-
-
 class Location(models.Model):
     locations = (
         ('Nairobi', 'Nairobi'),
