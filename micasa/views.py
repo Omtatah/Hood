@@ -26,3 +26,14 @@ def upload_hood(request):
     else:
         form = HoodForm()
     return render(request, 'upload_hood.html', locals())
+
+
+@login_required(login_url='/accounts/login/')
+def hood(request,hood_id):
+    current_user = request.user
+    hood_name = current_user.profile.hood
+    hood = Hood.objects.get(id=request.user.profile.hood.id)
+    businesses = Business.get_business(hood_id)
+    posts = Post.get_post(hood_id)
+
+    return render(request,'hood.html',locals())
