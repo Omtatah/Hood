@@ -6,11 +6,7 @@ from pyuploadcare.dj.models import ImageField
 
 # Create your models here.
 
-class Category(models.Model):
-    name = models.CharField(max_length=30)
 
-    def __str__(self):
-        return self.name
 
 
 class Location(models.Model):
@@ -29,6 +25,8 @@ class Location(models.Model):
     )
     name = models.CharField(max_length=65, choices=locations)
 
+
+
     def save_loc(self):
         self.save()
 
@@ -38,7 +36,50 @@ class Location(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+
+
+class Hood(models.Model):
+    name = models.CharField(max_length=50)
+    image = ImageField()
+    occupants = models.CharField(max_length=50)
+    location = models.ForeignKey(Location)
+    created_on = models.DateTimeField(auto_now_add=True, null=True)
+
+
+
+
+    class Meta:
+        ordering = ['-pk']
+
+    def save_hood(self):
+        self.save()
+
+
+    def delete_hood(self):
+        self.delete()
+
+
+    @classmethod
+    def search_hood(cls, search_term):
+        hood = Hood.objects.filter(name__icontains=search_term)
+        return hood
+
+
+    def __str__(self):
+        return self.name
+
+
+
+
 
 class Profile(models.Model):
     profile_pic = models.ImageField(upload_to = 'profile/',blank=True)
@@ -53,6 +94,8 @@ class Profile(models.Model):
     def save_profile(self):
         self.save()
 
+
+
     @receiver(post_save, sender=User)
     def update_user_profile(sender, instance, created, **kwargs):
         if created:
@@ -62,8 +105,7 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
-        
-        
+
 class Business(models.Model):
     business_name = models.CharField(max_length=50)
     owner = models.ForeignKey(User)
@@ -90,12 +132,14 @@ class Business(models.Model):
         business = Business.objects.filter(business_name__icontains=search_term)
         return business
 
+
     @classmethod
     def get_business(cls, id):
         business = Business.objects.filter(hood__pk=id)
         return business
-    
-    
+
+
+
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(max_length=300)
@@ -108,5 +152,8 @@ class Post(models.Model):
     @classmethod
     def get_post(cls, id):
         post = Post.objects.filter(hood__pk=id)
-        return post            
-    
+        return post
+
+
+
+
