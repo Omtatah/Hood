@@ -136,3 +136,13 @@ def search_category(request):
     else:
         message = "You haven't searched for anything"
         return render(request,'search_business.html',{"message":message})
+    
+    
+def filter_location(request):
+    locations = Location.objects.all()
+    location = request.GET.get("location")
+
+    searched_image = Hood.filter_by_location(location)
+    message = f"{location}"
+
+    return render(request,'category/location.html', {"message":message,"location":searched_image, "locations":locations})    
