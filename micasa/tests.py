@@ -41,4 +41,24 @@ class profileTestCLass(TestCase):
         self.assertTrue(len(bio) > 0)
         
         
-                
+class BusinessTestClass(TestCase):
+    def setUp(self):
+        self.new_user=User(username="nimz",email="nim@me.com")
+        self.new_user.save()
+        self.my_hood = Hood(name='wendani', location='kiambu', occupants=5)
+        self.my_hood.save()
+        self.burgers = Business(business_name='nim-burgers',email='nim@me.com',owner=self.new_user,hood=self.my_hood)
+        self.burgers.save()
+
+    def tearDown(self):
+        User.objects.all().delete()
+        Hood.objects.all().delete()
+        Business.objects.all().delete()
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.burgers,Business))
+
+    def test_save_business(self):
+        self.burgers.create_business()
+        business =  Business.objects.all()
+        self.assertTrue(len(business)>0)                
