@@ -8,16 +8,16 @@
         <h3 class="w3-text-white">Find Your Best Hood</h3>
         <form class="navbar-form " role="search" action="{% url 'search_results' %}">
             <input type="text" name="search" placeholder="&#xF002;  Search Hood" id="input"
-                class="w3-input w3-round-xxlarge" style="font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit; width:500px;">
+                class="w3-input w3-round-xxlarge"
+                style="font-family: FontAwesome; font-style: normal;  font-weight: normal; text-decoration: inherit; width:500px;">
         </form>
         {% if request.user.profile.hood %}
         <small class="w3-text-white">
-            <a href="{% url 'hood' hood_id=request.user.profile.hood.id %}"> View Your Current Hood </a>
+            <button class='btn' style="background-color: #EB4762">
+                <a href="{% url 'hood' hood_id=request.user.profile.hood.id %}"> View Your Current Hood </a>
+            </button>
         </small>
-        
+
         {% else %}
 
     </div>
