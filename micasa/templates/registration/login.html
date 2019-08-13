@@ -5,10 +5,10 @@
 {% block content %}
 <div class="container w3-margin-top">
     <div class="w3-row-padding">
-        <div class="w3-col l6 w3-hide-medium w3-hide-small">
+        <!-- <div class="w3-col l6 w3-hide-medium w3-hide-small">
             <img src="{%static 'images/sign.jpg'%}" style="width:100%; height:auto">
-        </div>
-        <div class="w3-col l6 m12 w3-mobile">
+        </div> -->
+        <div class="w3-col l12 m12 w3-mobile">
             {% if form.errors %}
             <p> Password or Username is incorrect </p>
             {% endif %}
@@ -29,19 +29,18 @@
                         <input type="hidden" name="next" value="{{next}}">
                     </form>
                 </div>
-            </div>
-
-            <div class="w3-card-4 w3-margin-top w3-padding">
+                <!-- </div>
+                <hr>
+                <div class="w3-card-4 w3-margin-top w3-padding"> -->
+                <hr>
                 <div class="w3-container w3-padding">
-                    <p class="w3-center"> Don't Have an account? <a href="/accounts/register">Sign Up</a> </p>
+                    <p class="w3-center" style="font-size: 18px;"> Don't have an account? <a
+                            class="w3-button w3-bar-item w3-centre w3-green" href="/accounts/register">Sign Up</a> </p>
                 </div>
+                <!-- </div> -->
             </div>
+            <div class="w3-col l2"></div>
         </div>
-        <div class="w3-col l2">
-
-        </div>
-
     </div>
 </div>
-
 {% endblock %}
